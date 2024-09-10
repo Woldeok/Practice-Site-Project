@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+
+/* Jua 폰트를 사용할 클래스 */
+.jua-regular {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Nanum Pen Script 폰트를 사용할 클래스 */
+.nanum-pen-script-regular {
+  font-family: "Nanum Pen Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 요소의 총 너비와 높이에 패딩과 테두리를 포함시킵니다 */
+}
+
+body {
+    font-family: Arial, sans-serif; /* 기본 본문에 Arial 글꼴을 적용 */
+    background-color: #f4f4f4; /* 본문에 밝은 회색 배경색을 설정 */
+}
+
+.header {
+    background-color: #00aaff; /* 헤더에 파란색 배경을 설정 */
+    padding: 10px 20px; /* 헤더 내부에 여백을 추가 */
+    display: flex; /* 플렉스박스를 사용하여 레이아웃을 설정 */
+    align-items: center; /* 헤더 내의 요소들을 수직 가운데 정렬 */
+    justify-content: space-between; /* 요소들 사이에 공간을 균등하게 배분 */
+}
+
+.Header_Outside_dev {
+    display: flex; /* 헤더 안의 컨테이너에 플렉스박스 레이아웃 적용 */
+    width: 100%; /* 컨테이너의 너비를 100%로 설정 */
+    align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+    justify-content: space-between; /* 로고와 메뉴들 사이에 공간을 만듦 */
+}
+
+.Logo_dev {
+    display: flex; /* 로고 이미지와 텍스트를 수평으로 배치하기 위해 플렉스박스 적용 */
+    align-items: center; /* 이미지와 텍스트를 수직 가운데 정렬 */
+}
+
+.Logo_Image {
+    width: 75px; /* 로고 이미지의 너비를 75px로 설정 */
+    height: 75px; /* 로고 이미지의 높이를 75px로 설정 */
+    margin-right: 15px; /* 로고 이미지와 텍스트 사이에 여백을 추가 */
+}
+
+.Logo_dev a {
+    font-size: 24px; /* 로고 텍스트의 글꼴 크기를 24px로 설정 */
+    color: white; /* 로고 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 로고 링크의 밑줄을 제거 */
+    font-weight: bold; /* 로고 텍스트를 굵게 설정 */
+}
+
+.menu a {
+    font-size: 18px; /* 메뉴 항목의 글꼴 크기를 18px로 설정 */
+    color: white; /* 메뉴 항목의 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 메뉴 링크의 밑줄을 제거 */
+    margin: 0 15px; /* 메뉴 항목 사이에 가로 여백을 추가 */
+    padding: 10px 15px; /* 메뉴 항목 주위에 패딩을 추가 */
+    border-radius: 5px; /* 메뉴 항목의 모서리를 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 메뉴 항목에 마우스를 올릴 때 배경색이 부드럽게 변하도록 설정 */
+}
+
+.menu a:hover {
+    background-color: #007acc; /* 메뉴 항목에 마우스를 올렸을 때 배경색을 변경 */
+}
+
+.auth-menu {
+    display: flex; /* 로그인 및 회원가입 메뉴를 플렉스박스 레이아웃으로 설정 */
+}
+
+.auth-menu a {
+    font-size: 24px; /* 로그인 및 회원가입 링크의 글꼴 크기를 24px로 설정 (폰트 제거됨) */
+    color: white; /* 로그인/회원가입 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 링크의 밑줄을 제거 */
+    margin: 0 15px; /* 로그인/회원가입 링크 사이에 여백을 추가 */
+    padding: 10px 15px; /* 로그인/회원가입 링크 주위에 패딩을 추가 */
+    border-radius: 5px; /* 로그인/회원가입 링크의 모서리를 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 링크에 마우스를 올릴 때 배경색이 부드럽게 변하도록 설정 */
+}
+
+.auth-menu a:hover {
+    background-color: #007acc; /* 로그인/회원가입 링크에 마우스를 올렸을 때 배경색 변경 */
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    color: #333;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

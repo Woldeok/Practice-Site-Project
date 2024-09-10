@@ -1,0 +1,45 @@
+/* 슬라이더 컨테이너 */
+.slider-container {
+    width: 70vw; /* 슬라이더가 화면 너비의 70%를 차지 */
+    height: 70vh; /* 슬라이더가 화면 높이의 70%를 차지 */
+    overflow: hidden; /* 슬라이더가 컨테이너를 벗어나지 않도록 설정 */
+    position: relative; /* 슬라이더 위치를 조정 가능하게 설정 */
+    margin: 0 auto; /* 슬라이더를 가로 중앙에 배치 */
+    top: 15vh; /* 화면 높이의 상단에서 15vh만큼 아래에 배치 (가운데 위치) */
+}
+
+/* 슬라이드 이미지가 가로로 나열되도록 설정 */
+.slides {
+    display: flex; /* 슬라이드 이미지를 가로로 나열 */
+    transition: transform 1s ease; /* 슬라이드 이동을 부드럽게 전환 */
+    width: 600%; /* 슬라이드가 6개라서 600% 설정 (4개 + 2개의 클론) */
+}
+
+.slides img {
+    width: 100%; /* 각 이미지가 슬라이더 컨테이너의 너비를 모두 차지하도록 설정 */
+    height: 100%; /* 각 이미지가 슬라이더 컨테이너의 높이를 모두 차지하도록 설정 */
+    object-fit: cover; /* 이미지 비율을 유지하며 슬라이더 크기에 맞추도록 설정 */
+    flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
+}
+
+/* 좌우 네비게이션 버튼 스타일 */
+.nav-button {
+    position: absolute;
+    top: 50%; /* 버튼을 세로 중앙에 배치 */
+    transform: translateY(-50%); /* 버튼을 정확하게 중앙으로 이동 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정색 배경 */
+    color: white; /* 버튼 텍스트는 흰색 */
+    border: none; /* 테두리 없음 */
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000; /* 버튼이 슬라이드 이미지 위에 표시되도록 설정 */
+}
+
+#prev {
+    left: 10px; /* 왼쪽에 위치 */
+}
+
+#next {
+    right: 10px; /* 오른쪽에 위치 */
+}

@@ -1,0 +1,13 @@
+2024-09-10T10:15:07.378Z [info]: 서버가 포트 3000에서 실행 중입니다.
+2024-09-10T10:17:46.649Z [info]: 서버가 포트 3000에서 실행 중입니다.
+2024-09-10T10:17:50.279Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /
+2024-09-10T10:17:50.279Z [info]: Serving index.html
+2024-09-10T10:17:50.323Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /css/index/index_header.css
+2024-09-10T10:17:50.325Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /css/index/index_slider.css
+2024-09-10T10:17:50.327Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /css/index/index_footer.css
+2024-09-10T10:17:50.328Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /img/logo.png
+2024-09-10T10:17:50.329Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /img/1.jpg
+2024-09-10T10:17:50.502Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /img/2.jpg
+2024-09-10T10:17:50.504Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /img/3.jpg
+2024-09-10T10:17:50.505Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /img/4.jpg
+2024-09-10T10:17:50.506Z [info]: IP: ::1 - Country: Unknown - Method: GET - URL: /js/slider.js
