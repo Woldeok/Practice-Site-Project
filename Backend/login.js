@@ -55,10 +55,10 @@ function getClientInfo(req) {
 }
 
 // 로그인 페이지 라우팅
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   const { clientIp, country } = getClientInfo(req); // IP와 국가 정보 가져오기
-  loginLogger.info(`IP: ${clientIp} - Country: ${country} - Method: ${req.method} - URL: ${req.url}`); // 로그 기록
-  res.sendFile(path.join(__dirname, '../public/src/html', 'login.html'));
+  mainLogger.info(`IP: ${clientIp} - Country: ${country} - Method: ${req.method} - URL: ${req.url}`); // 로그 기록
+  res.sendFile(path.join(__dirname, '../public/src/html', 'Login.html'));
 });
 
 module.exports = router;
