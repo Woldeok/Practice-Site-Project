@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');  // 비밀번호 암호화
 const path = require('path');
 const winston = require('winston');
 const geoip = require('geoip-lite');
-const db = require('../db');  // MySQL 데이터베이스 연결
+const db = require('../db');  // 예시: db.js 파일이 상위 디렉토리에 있는 경우
+
 
 // 국가 코드를 한국어로 변환하는 맵
 const countryMap = {
