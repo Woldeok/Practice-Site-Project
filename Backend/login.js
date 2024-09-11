@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');  // 비밀번호 암호화
 const path = require('path');
 const winston = require('winston');
 const geoip = require('geoip-lite');
+const db = require('../db');  // MySQL 데이터베이스 연결
 
 // 국가 코드를 한국어로 변환하는 맵
 const countryMap = {
@@ -54,7 +56,44 @@ function getClientInfo(req) {
   return { clientIp, country };
 }
 
-// 로그인 페이지 라우팅
+// 로그인 처리 라우터 (POST 요청)
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const { clientIp, country } = getClientInfo(req); // IP와 국가 정보 가져오기
+
+  try {
+    // 데이터베이스에서 사용자 정보 조회
+    const [user] = await db.query('SELECT * FROM Users WHERE username = ?', [username]);
+
+    if (user.length === 0) {
+      loginLogger.info(`IP: ${clientIp} - Country: ${country} - 로그인 실패: 사용자 없음 - Username: ${username}`);
+      return res.status(401).json({ message: '사용자를 찾을 수 없습니다.' });
+    }
+
+    // 비밀번호 비교
+    const validPassword = await bcrypt.compare(password, user[0].password);
+    if (!validPassword) {
+      loginLogger.info(`IP: ${clientIp} - Country: ${country} - 로그인 실패: 잘못된 비밀번호 - Username: ${username}`);
+      return res.status(401).json({ message: '잘못된 비밀번호입니다.' });
+    }
+
+    // 로그인 성공 시 로그인 기록 추가
+    const userId = user[0].user_id;
+    await db.query('INSERT INTO LoginHistory (user_id, login_ip) VALUES (?, ?)', [userId, clientIp]);
+
+    // 로그인 성공 로그 기록
+    loginLogger.info(`IP: ${clientIp} - Country: ${country} - 로그인 성공 - Username: ${username}`);
+
+    // 로그인 성공 응답
+    res.json({ message: '로그인 성공', userId: userId });
+
+  } catch (error) {
+    loginLogger.error(`로그인 오류: ${error.message}`);
+    res.status(500).json({ message: '서버 오류 발생' });
+  }
+});
+
+// 로그인 페이지 제공 (GET 요청)
 router.get('/login', (req, res) => {
   const { clientIp, country } = getClientInfo(req); // IP와 국가 정보 가져오기
   loginLogger.info(`IP: ${clientIp} - Country: ${country} - Method: ${req.method} - URL: ${req.url}`); // 로그 기록
