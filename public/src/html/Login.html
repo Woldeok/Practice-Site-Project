@@ -12,7 +12,7 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="login-container text-center">
             <div class="logo mb-4">
-                <img src="../img/Logo.png" alt="Farm&Berry Logo" class="img-fluid">
+                <img src="../img/logo.png" alt="Farm&Berry Logo" class="img-fluid">
             </div>
             <form id="login-form">
                 <input type="text" id="username" placeholder="아이디" class="form-control mb-3 input-field" required>
@@ -49,7 +49,7 @@
                     messageDiv.innerHTML = `<p class="text-success">${result.message}</p>`;
                     // 로그인 성공 시 홈으로 리디렉션
                     setTimeout(() => {
-                        window.location.href = '/home'; // 홈 경로로 이동
+                        window.location.href = '/'; // 홈 경로로 이동
                     }, 1000); // 1초 후 홈으로 이동
                 } else {
                     messageDiv.innerHTML = `<p class="text-danger">${result.message}</p>`;

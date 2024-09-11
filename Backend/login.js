@@ -5,7 +5,8 @@ const path = require('path');
 const winston = require('winston');
 const geoip = require('geoip-lite');
 const db = require('../db');  // 예시: db.js 파일이 상위 디렉토리에 있는 경우
-
+const jwt = require('jsonwebtoken');  // JWT 토큰 생성
+const secretKey = 'your_secret_key';  // JWT 토큰 서명에 사용할 키
 
 // 국가 코드를 한국어로 변환하는 맵
 const countryMap = {
@@ -78,15 +79,21 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: '잘못된 비밀번호입니다.' });
     }
 
+    // 토큰 생성
+    const token = jwt.sign({ userId: user[0].user_id, username: user[0].username }, secretKey, { expiresIn: '1h' });
+
     // 로그인 성공 시 로그인 기록 추가
     const userId = user[0].user_id;
-    await db.query('INSERT INTO LoginHistory (user_id, login_ip) VALUES (?, ?)', [userId, clientIp]);
+    await db.query(
+      'INSERT INTO LoginHistory (user_id, login_ip, login_country, token) VALUES (?, ?, ?, ?)', 
+      [userId, clientIp, country, token]
+    );
 
     // 로그인 성공 로그 기록
-    loginLogger.info(`IP: ${clientIp} - Country: ${country} - 로그인 성공 - Username: ${username}`);
+    loginLogger.info(`IP: ${clientIp} - Country: ${country} - 로그인 성공 - Username: ${username} - Token: ${token}`);
 
     // 로그인 성공 응답
-    res.json({ message: '로그인 성공', userId: userId });
+    res.json({ message: '로그인 성공', userId: userId, token: token });
 
   } catch (error) {
     loginLogger.error(`로그인 오류: ${error.message}`);
