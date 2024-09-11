@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff; /* 흰색 배경 */
+}
+
+.login-container {
+    width: 500px; /* 전체 크기를 크게 설정 */
+    padding: 50px; /* 컨테이너 내부 패딩 증가 */
+    border-radius: 15px;
+    background-color: #f7f7f7;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 300px; /* 로고 크기 크게 */
+}
+
+.input-field {
+    height: 60px; /* 입력 필드 높이 증가 */
+    font-size: 22px; /* 글자 크기 증가 */
+}
+
+.login-button {
+    height: 65px; /* 버튼 높이 증가 */
+    font-size: 22px; /* 버튼 글자 크기 증가 */
+}
+
+/* 반응형 디자인 - 작은 화면에서도 크기를 크게 유지 */
+@media (max-width: 768px) {
+    .login-container {
+        width: 100%; /* 작은 화면에서도 가로폭 100% 사용 */
+        padding: 40px; /* 작은 화면에서도 충분한 패딩 */
+    }
+
+    .logo img {
+        width: 250px; /* 로고 크기를 크게 유지 */
+    }
+
+    .input-field {
+        height: 55px; /* 작은 화면에서도 큰 입력 필드 */
+        font-size: 20px; /* 글자 크기도 크게 유지 */
+    }
+
+    .login-button {
+        height: 60px; /* 버튼 높이 유지 */
+        font-size: 20px; /* 작은 화면에서도 글자 크기 유지 */
+    }
+}
+
+/* 더 작은 화면에서도 크기를 크게 설정 */
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%; /* 너무 작아지지 않도록 가로폭 90%로 설정 */
+        padding: 30px; /* 작은 화면에서도 패딩 유지 */
+    }
+
+    .logo img {
+        width: 200px; /* 로고 크기를 200px로 설정 */
+    }
+
+    .input-field {
+        height: 50px; /* 작은 화면에서도 입력 필드를 크게 유지 */
+        font-size: 18px; /* 글자 크기 유지 */
+    }
+
+    .login-button {
+        height: 55px; /* 작은 화면에서도 버튼 높이 유지 */
+        font-size: 18px; /* 버튼 글자 크기 유지 */
+    }
+}
