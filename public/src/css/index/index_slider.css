@@ -43,3 +43,16 @@
 #next {
     right: 10px; /* 오른쪽에 위치 */
 }
+
+/* 모바일 기기에서 슬라이더 조정 */
+@media only screen and (max-width: 600px) {
+    .slider-container {
+        width: 90vw; /* 모바일에서는 화면 너비의 90% 사용 */
+        height: 50vh; /* 높이를 50%로 줄여 화면에 더 잘 맞게 */
+        top: 10vh; /* 상단 여백을 더 줄여 중앙에 맞춤 */
+    }
+
+    .slides img {
+        height: auto; /* 이미지를 자동 비율로 조정 */
+    }
+}

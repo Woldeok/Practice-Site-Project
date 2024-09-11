@@ -8,3 +8,11 @@
     width: 100%;
     bottom: 0;
 }
+
+/* 모바일 기기에서 푸터 조정 */
+@media only screen and (max-width: 600px) {
+    .footer {
+        font-size: 12px; /* 푸터 글씨 크기를 줄임 */
+        padding: 10px; /* 푸터 패딩을 줄임 */
+    }
+}
