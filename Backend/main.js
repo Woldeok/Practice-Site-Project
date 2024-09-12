@@ -61,4 +61,10 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/src/html', 'index.html'));
 });
 
+router.get('/Company_introduction', (req, res) => {
+  const { clientIp, country } = getClientInfo(req); // IP와 국가 정보 가져오기
+  mainLogger.info(`IP: ${clientIp} - Country: ${country} - Method: ${req.method} - URL: ${req.url}`); // 로그 기록
+  res.sendFile(path.join(__dirname, '../public/src/html', 'Company_introduction.html'));
+});
+
 module.exports = router;
