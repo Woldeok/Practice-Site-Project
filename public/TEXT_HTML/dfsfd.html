@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팜앤베리 회사 소개</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #82b440;
+        }
+
+        .navbar a {
+            color: white !important;
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 150px;
+            height: auto;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #82b440;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .logo {
+                width: 120px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar using Bootstrap -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand text-white" href="#">팜앤베리</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">회사 소개</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">메뉴1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">메뉴2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">메뉴3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">로그인</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container mt-4">
+        <img src="로고 이미지 경로" alt="Farm & Berry Logo" class="logo">
+        <h1>상호: 팜앤베리</h1>
+        <h2>설립 목적</h2>
+        <p>
+            팜앤베리는 제주도의 자연환경을 바탕으로 친환경 농업과 6차 산업을 결합하여<br>
+            고품질 농산물 및 가공품을 제공하는 농업 법인입니다.<br>
+            망고, 감귤 등의 과일 농사와 돼지 사육을 통해 소비자에게 신선하고 건강한 농산물을 공급하며,<br>
+            이를 기반으로 망고 와인, 망고 소주, 망고 막걸리 등 다양한 주류 제품을 생산하고 있습니다.
+        </p>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
