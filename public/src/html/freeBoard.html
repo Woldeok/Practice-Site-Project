@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유 게시판</title>
+    <link rel="stylesheet" href="../css/board.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴1</a>
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login">로그인</a>
+                <a href="/signup">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="board-container">
+        <h2 class="board-title">자유 게시판</h2>
+
+        <div class="search-bar">
+            <label for="search-title">제목</label>
+            <input type="text" id="search-title">
+            <button type="submit">검색</button>
+        </div>
+
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>글제목</th>
+                    <th>등록자명</th>
+                    <th>등록일</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < posts.length; i++) { %>
+                    <tr>
+                        <td><%= posts[i].id %></td>
+                        <td><%= posts[i].title %></td>
+                        <td><%= posts[i].author %></td>
+                        <td><%= posts[i].date %></td>
+                        <td><%= posts[i].views %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button>이전</button>
+            <button>글작성하기</button>
+            <button>다음</button>
+        </div>
+    </div>
+</body>
+</html>

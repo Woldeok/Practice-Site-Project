@@ -43,3 +43,25 @@
 2024-09-11T10:13:36.376Z [info]: IP: 221.154.192.39, 10.1.20.202 - Country: 알 수 없음 - Method: GET - URL: /login
 2024-09-11T10:13:36.591Z [info]: IP: 221.154.192.39, 10.1.20.202 - Country: 알 수 없음 - Method: GET - URL: /login
 2024-09-11T10:14:10.433Z [info]: IP: 221.154.192.39, 10.1.20.239 - Country: 알 수 없음 - 로그인 성공 - Username: wxcve123 - Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoid3hjdmUxMjMiLCJpYXQiOjE3MjYwNDk2NTAsImV4cCI6MTcyNjA1MzI1MH0.Omw756qp3coay6B_rtprDwiGsUEZvDFZEdJ7QgPtrTo
+2024-09-19T05:04:59.791Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:06:37.022Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:06:37.152Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:06:55.680Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:06:55.861Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:06:55.995Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-19T05:13:28.493Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-20T05:28:05.354Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-20T05:28:12.055Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-20T05:28:21.317Z [error]: 로그인 오류: Unknown database 'practice_site_project'
+2024-09-20T05:49:54.140Z [info]: IP: Localhost - Country: 알 수 없음 - Method: GET - URL: /login
+2024-09-20T05:50:00.819Z [info]: IP: Localhost - Country: 알 수 없음 - 로그인 성공 - Username: wtrdd - Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoid3RyZGQiLCJpYXQiOjE3MjY4MTE0MDAsImV4cCI6MTcyNjgxNTAwMH0.a1CFeTtHyu4dVifHOwGgPv4dyKzx7W82C-Jvd5C8jzo
+2024-09-20T06:04:23.027Z [info]: IP: ::1 - Country: 알 수 없음 - 로그인 페이지 요청
+2024-09-20T06:04:28.469Z [info]: IP: ::1 - Country: 알 수 없음 - 로그인 성공 - Username: wtrdd
+2024-09-20T08:03:55.142Z [info]: IP: ::1 - Country: 알 수 없음 - 로그인 페이지 요청
+2024-09-21T00:00:21.488Z [info]: 로그인 성공 - Username: wtrdd
+2024-09-21T00:13:23.964Z [info]: 로그인 실패: 잘못된 비밀번호 - Username: wtrdd
+2024-09-21T00:13:25.311Z [info]: 로그인 실패: 잘못된 비밀번호 - Username: wtrdd
+2024-09-21T00:13:28.705Z [info]: 로그인 성공 - Username: wtrdd
+2024-09-21T00:44:24.413Z [info]: 로그인 성공 - Username: wtrdd
+2024-09-21T00:50:21.981Z [info]: 로그인 성공 - Username: wtrdd
+2024-09-21T00:51:56.274Z [info]: 로그인 성공 - Username: wtrdd

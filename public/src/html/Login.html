@@ -47,9 +47,9 @@
 
                 if (response.ok) {
                     messageDiv.innerHTML = `<p class="text-success">${result.message}</p>`;
-                    // 로그인 성공 시 홈으로 리디렉션
+                    // 로그인 성공 시 홈 화면으로 리디렉션
                     setTimeout(() => {
-                        window.location.href = '/'; // 홈 경로로 이동
+                        window.location.href = '/'; // 홈 경로로 이동 (원하는 경로로 수정 가능)
                     }, 1000); // 1초 후 홈으로 이동
                 } else {
                     messageDiv.innerHTML = `<p class="text-danger">${result.message}</p>`;

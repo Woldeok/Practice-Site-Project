@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유 게시판</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <script>
+        // 로그인하지 않았을 때 경고 메시지 표시
+        function handleWriteClick(loggedIn) {
+            if (!loggedIn) {
+                alert("로그인 후 글쓰기가 가능합니다. 로그인 페이지로 이동합니다.");
+                window.location.href = '/login';  // 로그인 페이지로 이동
+            } else {
+                window.location.href = '/board/new';  // 글쓰기 페이지로 이동
+            }
+        }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴2</a>
+                <a href="#">메뉴3</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login">로그인</a>
+                <a href="/signup">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="board-container">
+        <h2 class="board-title">자유 게시판</h2>
+
+        <!-- 검색 바 -->
+        <div class="search-bar">
+            <input type="text" id="search-title" placeholder="제목으로 검색하세요" name="search">
+            <button type="submit">검색</button>
+        </div>
+
+        <!-- 글쓰기 버튼 (로그인 여부에 상관없이 표시) -->
+        <div class="write-button-container">
+            <button onclick="handleWriteClick(<%= user ? 'true' : 'false' %>)" class="write-button">글쓰기</button>
+        </div>
+
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>글제목</th>
+                    <th>등록자명</th>
+                    <th>작성 IP</th>
+                    <th>작성 시간</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% posts.forEach(function(post) { %>
+                <tr>
+                    <td><%= post.id %></td>
+                    <td><%= post.title %></td>
+                    <td><%= post.author %></td>
+                    <td><%= post.ip_address %></td>
+                    <td><%= post.created_at %></td>
+                    <td><%= post.views %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button>이전</button>
+            <button>다음</button>
+        </div>
+    </div>
+</body>
+</html>
