@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유 게시판</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <script>
+        // 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동
+        function handleWriteClick() {
+            window.location.href = '/board/new';  // 글쓰기 페이지로 이동
+        }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴2</a>
+                <a href="#">메뉴3</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <% if (user) { %>
+                    <span>환영합니다, <%= user.nickname %>님!</span>
+                    <a href="/logout">로그아웃</a>
+                <% } else { %>
+                    <a href="/login">로그인</a>
+                    <a href="/signup">회원가입</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="board-container">
+        <h2 class="board-title">자유 게시판</h2>
+
+        <!-- 검색 바 -->
+        <div class="search-bar">
+            <input type="text" id="search-title" placeholder="제목으로 검색하세요" name="search">
+            <button type="submit">검색</button>
+        </div>
+
+        <!-- 글쓰기 버튼 (로그인 여부 상관없이 바로 이동) -->
+        <div class="write-button-container">
+            <!-- 글쓰기 페이지로 바로 이동 -->
+            <button onclick="handleWriteClick()" class="write-button">글쓰기</button>
+        </div>
+
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>글제목</th>
+                    <th>등록자명</th>
+                    <!-- IP 열은 관리자만 보이게 -->
+                    <% if (user && user.isAdmin) { %>
+                        <th>작성 IP</th>
+                    <% } %>
+                    <th>작성 시간</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% posts.forEach(function(post) { %>
+                <tr onclick="window.location.href='/board/<%= post.id %>'">
+                    <td><%= post.id %></td>
+                    <td><%= post.title %></td>
+                    <td><%= post.author %></td>
+                    <!-- IP는 관리자만 볼 수 있도록 숨김 -->
+                    <% if (user && user.isAdmin) { %>
+                        <td><%= post.ip_address %></td>
+                    <% } %>
+                    <td><%= post.created_at %></td>
+                    <td><%= post.views %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        
+        <div class="pagination">
+            <button>이전</button>
+            <button>다음</button>
+        </div>
+    </div>
+</body>
+</html>
