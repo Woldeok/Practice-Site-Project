@@ -245,3 +245,15 @@ textarea {
         font-size: 12px;
     }
 }
+.board-table td {
+    cursor: pointer;
+}
+
+.board-table td a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 글자색 상속 */
+}
+
+.board-table td:hover {
+    background-color: #f0f0f0;  /* 마우스 오버 시 배경색 변경 */
+}

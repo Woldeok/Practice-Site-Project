@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 3000;
+require('dotenv').config();
+const mainRouter = require('./Backend/main'); // 경로 수정 필요할 수 있음
 
-const mainRouter = require('./Backend/main');
 const loginRouter = require('./Backend/login');
 const signupRouter = require('./Backend/signup');
-const boardRouter = require('./Backend/board'); // 게시판 라우터 추가
+const board = require('./Backend/board');
+
 
 // 쿠키 파서 설정
 app.use(cookieParser());
@@ -30,7 +32,7 @@ app.set('view engine', 'ejs');
 app.use('/', mainRouter);    // 메인 페이지 라우터
 app.use('/', loginRouter);   // 로그인 라우터
 app.use('/', signupRouter);  // 회원가입 라우터
-app.use('/', boardRouter);   // 게시판 라우터
+app.use('/', board);   // 게시판 라우터
 
 // 서버 시작
 app.listen(port, () => {

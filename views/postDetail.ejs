@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" href="/css/postDetail.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴2</a>
+                <a href="#">메뉴3</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <% if (user) { %>
+                    <span>환영합니다, <%= user.nickname %>님!</span>
+                    <a href="/logout">로그아웃</a>
+                <% } else { %>
+                    <a href="/login">로그인</a>
+                    <a href="/signup">회원가입</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="post-container">
+        <h2 class="post-title"><%= post.title %></h2>
+        <div class="post-details">
+            <p class="post-author">작성자: <%= post.author %></p>
+            <p class="post-date">작성 시간: <%= new Date(post.created_at).toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true }) %></p>
+            <% if (user && user.user_id === post.author_id) { %>
+                <div class="post-actions">
+                    <a href="/board/<%= post.id %>/edit" class="edit-button">수정</a>
+                    <form action="/board/<%= post.id %>/delete" method="POST" class="delete-form">
+                        <button type="submit" class="delete-button">삭제</button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+        <div class="post-content">
+            <p><%= post.content %></p>
+        </div>
+
+        <div class="comments-section">
+            <h3>댓글</h3>
+            <ul class="comments-list">
+                <% comments.forEach(function(comment) { %>
+                    <li class="comment-item">
+                        <div class="comment-author"><%= comment.user_id %></div>
+                        <div class="comment-time"><%= new Date(comment.created_at).toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true }) %></div>
+                        <div class="comment-content"><%= comment.content %></div>
+                        <% if (user && user.user_id === comment.user_id) { %>
+                            <div class="comment-actions">
+                                <a href="/board/<%= post.id %>/comment/<%= comment.id %>/edit" class="edit-button">수정</a>
+                                <form action="/board/<%= post.id %>/comment/<%= comment.id %>/delete" method="POST" class="delete-form">
+                                    <button type="submit" class="delete-button">삭제</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+
+            <form action="/board/<%= post.id %>/comment" method="POST" class="comment-form">
+                <textarea name="comment" placeholder="댓글을 작성하세요" required></textarea>
+                <button type="submit">댓글 작성</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

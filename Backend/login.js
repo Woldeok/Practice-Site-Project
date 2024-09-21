@@ -2,25 +2,26 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');  
 const jwt = require('jsonwebtoken');
-const db = require('../db');
+const db = require('../db');  // MySQL 연결
 const winston = require('winston');
 const path = require('path');
 
-const secretKey = 'your_secret_key';  // JWT 서명에 사용할 비밀키
+// 비밀키를 환경 변수로 관리
+const secretKey = 'your_secret_key'; 
 
 // 로그인 전용 로거 생성
 const loginLogger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.printf(info => `${info.timestamp} [${info.level}]: ${info.message}`)
-  ),
-  transports: [
-    new winston.transports.File({
-      filename: path.join(__dirname, '../logs/login.log'),  // 로그인 로그 파일
-      level: 'info'
-    }),
-    new winston.transports.Console()
-  ]
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.printf(info => `${info.timestamp} [${info.level}]: ${info.message}`)
+    ),
+    transports: [
+        new winston.transports.File({
+            filename: path.join(__dirname, '../logs/login.log'),  // 로그인 로그 파일
+            level: 'info'
+        }),
+        new winston.transports.Console()
+    ]
 });
 
 // 로그인 페이지 제공 (GET 요청)
@@ -48,6 +49,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: '잘못된 비밀번호입니다.' });
         }
 
+        // JWT 생성
         const token = jwt.sign({ userId: user[0].user_id, nickname: user[0].nickname }, secretKey, { expiresIn: '1h' });
         loginLogger.info(`로그인 성공 - user_id: ${user_id}, nickname: ${user[0].nickname}`);
 
@@ -62,4 +64,5 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// 모듈 내보내기
 module.exports = router;

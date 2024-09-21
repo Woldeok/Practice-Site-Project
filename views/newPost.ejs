@@ -3,27 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 작성</title>
-    <link rel="stylesheet" href="/css/board.css">
+    <title>글 작성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #00aaff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-outer {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .site-name {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu a, .auth-menu a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .menu a:hover, .auth-menu a:hover {
+            background-color: #007acc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .write-container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .write-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #00aaff;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background-color: #007acc;
+        }
+
+        /* 반응형 디자인 - 작은 화면(모바일)용 */
+        @media (max-width: 768px) {
+            .write-container {
+                width: 90%;
+                margin-top: 20px;
+            }
+
+            .write-title {
+                font-size: 24px;
+            }
+
+            .form-group input, .form-group textarea {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .submit-button {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .site-name {
+                font-size: 20px;
+            }
+
+            .menu a, .auth-menu a {
+                font-size: 16px;
+            }
+        }
+
+        /* 초소형 화면 (아주 작은 모바일 기기)용 */
+        @media (max-width: 480px) {
+            .write-container {
+                width: 95%;
+            }
+
+            .form-group input, .form-group textarea {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .submit-button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .site-name {
+                font-size: 18px;
+            }
+
+            .menu a, .auth-menu a {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="board-container">
-        <h2 class="board-title">새 게시글 작성</h2>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴2</a>
+                <a href="#">메뉴3</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login">로그인</a>
+                <a href="/signup">회원가입</a>
+            </nav>
+        </div>
+    </header>
 
+    <div class="write-container">
+        <h2 class="write-title">글 작성</h2>
         <form action="/board" method="POST">
             <div class="form-group">
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" name="title" placeholder="제목" required>
             </div>
             <div class="form-group">
-                <label for="author">작성자</label>
-                <input type="text" id="author" name="author" value="<%= user.username %>" readonly>
+                <textarea name="content" rows="10" placeholder="내용" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="content">내용</label>
-                <textarea id="content" name="content" required></textarea>
-            </div>
-            <button type="submit">작성하기</button>
+            <button type="submit" class="submit-button">작성하기</button>
         </form>
     </div>
 </body>

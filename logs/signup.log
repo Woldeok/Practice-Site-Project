@@ -2,3 +2,6 @@
 2024-09-21T01:21:39.486Z [info]: 회원가입 시도 - user_id: sgfggg, nickname: 홍종환, email: wxccve123@naver.com
 2024-09-21T01:21:39.580Z [info]: 비밀번호 암호화 성공
 2024-09-21T01:21:39.587Z [info]: 회원가입 성공 - user_id: sgfggg
+2024-09-21T02:43:00.548Z [info]: 회원가입 페이지 요청
+2024-09-21T02:43:08.994Z [info]: 회원가입 시도 - user_id: asdasd, nickname: asdasd
+2024-09-21T02:43:09.099Z [info]: 회원가입 성공 - user_id: asdasd, nickname: asdasd
