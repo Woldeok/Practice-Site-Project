@@ -29,7 +29,7 @@ router.get('/board', async (req, res) => {
 
     try {
         const [results] = await db.query('SELECT * FROM Board ORDER BY created_at DESC');
-        res.render('board', { posts: results, user: req.user || null });  // user 객체를 전달
+        res.render('board', { posts: results, user: req.user || null });  // user 객체를 항상 전달
     } catch (err) {
         console.error('게시글 조회 오류:', err);
         return res.status(500).json({ message: '게시글 조회 중 오류 발생' });
@@ -39,7 +39,7 @@ router.get('/board', async (req, res) => {
 // 게시글 작성 페이지 제공 (GET 요청) - 로그인한 사용자만 접근 가능
 router.get('/board/new', authenticateToken, (req, res) => {
     logTokenAndUser(req);  // 토큰 로그 기록
-    res.render('newPost', { user: req.user });
+    res.render('newPost', { user: req.user });  // 항상 user 객체 전달
 });
 
 // 게시글 상세보기 (GET 요청)
@@ -76,7 +76,7 @@ router.post('/board', authenticateToken, async (req, res) => {
     }
 });
 
-// 게시글 수정 페이지 제공 (GET 요청)
+// 게시글 수정 페이지 제공 (GET 요청) - 작성자만 접근 가능
 router.get('/board/:id/edit', authenticateToken, async (req, res) => {
     const postId = req.params.id;
     try {
@@ -84,6 +84,12 @@ router.get('/board/:id/edit', authenticateToken, async (req, res) => {
         if (results.length === 0) {
             return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
         }
+
+        // 작성자만 접근 가능하도록 체크
+        if (results[0].author_id !== req.user.userId) {
+            return res.status(403).json({ message: '게시글을 수정할 권한이 없습니다.' });
+        }
+
         res.render('editPost', { post: results[0], user: req.user });
     } catch (err) {
         console.error('게시글 수정 페이지 제공 오류:', err);
@@ -91,11 +97,22 @@ router.get('/board/:id/edit', authenticateToken, async (req, res) => {
     }
 });
 
-// 게시글 수정 처리 (POST 요청)
+// 게시글 수정 처리 (POST 요청) - 작성자만 가능
 router.post('/board/:id/edit', authenticateToken, async (req, res) => {
     const postId = req.params.id;
     const { title, content } = req.body;
+
     try {
+        const [results] = await db.query('SELECT * FROM Board WHERE id = ?', [postId]);
+        if (results.length === 0) {
+            return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
+        }
+
+        // 작성자만 수정 가능하도록 체크
+        if (results[0].author_id !== req.user.userId) {
+            return res.status(403).json({ message: '게시글을 수정할 권한이 없습니다.' });
+        }
+
         await db.query('UPDATE Board SET title = ?, content = ? WHERE id = ?', [title, content, postId]);
         res.redirect(`/board/${postId}`);  // 수정 후 해당 게시글 페이지로 리디렉션
     } catch (err) {
@@ -104,10 +121,21 @@ router.post('/board/:id/edit', authenticateToken, async (req, res) => {
     }
 });
 
-// 게시글 삭제 처리 (POST 요청)
+// 게시글 삭제 처리 (POST 요청) - 작성자만 가능
 router.post('/board/:id/delete', authenticateToken, async (req, res) => {
     const postId = req.params.id;
+
     try {
+        const [results] = await db.query('SELECT * FROM Board WHERE id = ?', [postId]);
+        if (results.length === 0) {
+            return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
+        }
+
+        // 작성자만 삭제 가능하도록 체크
+        if (results[0].author_id !== req.user.userId) {
+            return res.status(403).json({ message: '게시글을 삭제할 권한이 없습니다.' });
+        }
+
         await db.query('DELETE FROM Board WHERE id = ?', [postId]);
         res.redirect('/board');  // 삭제 후 게시판 목록으로 리디렉션
     } catch (err) {
