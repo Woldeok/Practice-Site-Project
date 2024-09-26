@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <!-- 부트스트랩 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" href="/css/registerProduct.css">
+</head>
+<body>
+    <header class="bg-primary text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>팜앤베리</h1>
+            <nav>
+                <a href="#" class="text-white mr-3">회사소개</a>
+                <a href="#" class="text-white mr-3">게시판</a>
+                <a href="#" class="text-white mr-3">상점</a>
+                <a href="#" class="text-white mr-3">메뉴1</a>
+                <a href="/login" class="text-white mr-3">로그인</a>
+                <a href="/signup" class="text-white">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">상품 등록</h2>
+                <form action="/product/register" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="productName">상품 이름</label>
+                        <input type="text" id="productName" name="name" class="form-control" placeholder="상품 이름" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">상품 가격</label>
+                        <input type="number" id="productPrice" name="price" class="form-control" placeholder="상품 가격" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">상품 사진</label>
+                        <input type="file" id="productImage" name="image" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">등록하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

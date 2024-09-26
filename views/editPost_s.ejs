@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댓글 수정</title>
+    <link rel="stylesheet" href="/css/editComment.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">메뉴1</a>
+                <a href="#">메뉴2</a>
+                <a href="#">메뉴3</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <% if (user) { %>
+                    <span>환영합니다, <%= user.nickname %>님!</span>
+                    <a href="/logout">로그아웃</a>
+                <% } else { %>
+                    <a href="/login">로그인</a>
+                    <a href="/signup">회원가입</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="edit-comment-container">
+        <h2 class="edit-comment-title">댓글 수정</h2>
+
+        <!-- Display the comment content and provide a form for editing -->
+        <form action="/board/<%= post.id %>/comment/<%= comment.id %>/edit" method="POST">
+            <label for="comment">댓글 내용</label>
+            <textarea id="comment" name="content" rows="5" required><%= comment.content %></textarea>
+
+            <button type="submit" class="submit-button">수정 완료</button>
+        </form>
+    </div>
+</body>
+</html>

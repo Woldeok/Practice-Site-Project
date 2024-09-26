@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 목록</title>
+    <!-- 부트스트랩 CSS 링크 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .product-grid {
+            margin-top: 30px;
+        }
+        .product-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            object-fit: cover;
+        }
+        .default-img {
+            background-color: #cccccc;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #888;
+        }
+        .product-name {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .product-price {
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>팜앤베리</h1>
+            <nav>
+                <a href="#" class="text-white mr-3">회사소개</a>
+                <a href="#" class="text-white mr-3">게시판</a>
+                <a href="#" class="text-white mr-3">상점</a>
+                <a href="/login" class="text-white mr-3">로그인</a>
+                <a href="/signup" class="text-white">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container product-grid">
+        <div class="row" id="product-list">
+            <% products.forEach(function(product) { %>
+            <div class="col-md-4">
+                <div class="product-item">
+                    <!-- 상품 클릭 시 상세페이지로 이동 -->
+                    <a href="/product/<%= product.id %>">
+                        <% if (product.image && product.image !== '파일없음') { %>
+                            <img src="<%= product.image %>" alt="상품 이미지" class="product-img">
+                        <% } else { %>
+                            <div class="default-img">이미지 없음</div> <!-- 이미지 없을 때 네모난 칸과 '이미지 없음' 표시 -->
+                        <% } %>
+                        <div class="product-name">상품명: <%= product.name %></div>
+                        <div class="product-price">가격: <%= product.price %>원</div>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS 링크 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

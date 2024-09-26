@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');  
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../db');  // MySQL 연결
 const winston = require('winston');
 const path = require('path');
+const session = require('express-session');
 
 // 비밀키를 환경 변수로 관리
-const secretKey = 'your_secret_key'; 
+const secretKey = 'your_secret_key';
 
 // 로그인 전용 로거 생성
 const loginLogger = winston.createLogger({
@@ -23,6 +24,14 @@ const loginLogger = winston.createLogger({
         new winston.transports.Console()
     ]
 });
+
+// 세션 설정 미들웨어 추가
+router.use(session({
+    secret: 'your_session_secret',  // 세션 비밀키
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }  // HTTP 사용시 false, HTTPS 사용시 true
+}));
 
 // 로그인 페이지 제공 (GET 요청)
 router.get('/login', (req, res) => {
@@ -49,9 +58,20 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: '잘못된 비밀번호입니다.' });
         }
 
+        // wtrdd 계정에 관리자 권한 추가
+        let isAdmin = false;
+        if (user[0].user_id === 'wtrdd') {
+            isAdmin = true;
+        }
+
+        // 세션에 사용자 정보와 관리자 권한 추가
+        req.session.userId = user[0].user_id;
+        req.session.nickname = user[0].nickname;
+        req.session.isAdmin = isAdmin;
+
         // JWT 생성
-        const token = jwt.sign({ userId: user[0].user_id, nickname: user[0].nickname }, secretKey, { expiresIn: '1h' });
-        loginLogger.info(`로그인 성공 - user_id: ${user_id}, nickname: ${user[0].nickname}`);
+        const token = jwt.sign({ userId: user[0].user_id, nickname: user[0].nickname, isAdmin }, secretKey, { expiresIn: '1h' });
+        loginLogger.info(`로그인 성공 - user_id: ${user_id}, nickname: ${user[0].nickname}, isAdmin: ${isAdmin}`);
 
         // 토큰을 쿠키에 저장
         res.cookie('token', token, { httpOnly: true });
@@ -62,6 +82,18 @@ router.post('/login', async (req, res) => {
         loginLogger.error(`로그인 오류: ${error.message}`);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
     }
+});
+
+// 로그아웃 처리 (GET 요청)
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: '로그아웃 중 오류 발생' });
+        }
+
+        res.clearCookie('token');  // 쿠키에 저장된 JWT 토큰 삭제
+        res.redirect('/');
+    });
 });
 
 // 모듈 내보내기

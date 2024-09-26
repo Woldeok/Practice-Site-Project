@@ -1,17 +1,27 @@
 const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
-    const token = req.cookies.token;  // 쿠키에서 토큰을 가져옵니다.
-    if (!token) return res.status(401).json({ message: '토큰이 필요합니다.' }); // 인증 실패
+    const token = req.cookies.token; // 쿠키에서 토큰 가져오기
 
+    // 토큰이 없는 경우 홈으로 리다이렉트
+    if (!token) {
+        console.log(`${new Date().toISOString()} [info]: 요청에 토큰이 없습니다. 홈으로 리다이렉트됩니다.`);
+        return res.redirect('/'); // 홈으로 리다이렉트
+    }
+
+    // 토큰 검증
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             console.error('토큰 검증 실패:', err);
-            return res.status(403).json({ message: '유효하지 않은 토큰입니다.' }); // 토큰 유효하지 않음
+            // 유효하지 않은 토큰일 경우 홈으로 리다이렉트
+            return res.redirect('/');
         }
-        req.user = user; // 사용자 정보를 요청 객체에 추가
-        next();
+
+        // 토큰이 유효한 경우 사용자 정보를 요청 객체에 추가하고 로그 기록
+        req.user = user;
+        console.log(`${new Date().toISOString()} [info]: 요청한 사용자 ID: ${user.userId}`);
+        next(); // 다음 미들웨어로 이동
     });
 }
 
-module.exports = authenticateToken; // 모듈 내보내기
+module.exports = authenticateToken;

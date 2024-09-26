@@ -10,7 +10,7 @@ const mainRouter = require('./Backend/main'); // 경로 수정 필요할 수 있
 const loginRouter = require('./Backend/login');
 const signupRouter = require('./Backend/signup');
 const board = require('./Backend/board');
-
+const products = require('./Backend/products');
 
 // 쿠키 파서 설정
 app.use(cookieParser());
@@ -20,7 +20,7 @@ app.use('/css', express.static(path.join(__dirname, '/views/css')));
 app.use('/css', express.static(path.join(__dirname, '/public/src/css')));
 app.use('/img', express.static(path.join(__dirname, '/public/src/img')));
 app.use('/js', express.static(path.join(__dirname, '/public/src/js')));
-
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 // Body Parser 설정 (POST 요청에서 데이터 받기 위해)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -33,6 +33,7 @@ app.use('/', mainRouter);    // 메인 페이지 라우터
 app.use('/', loginRouter);   // 로그인 라우터
 app.use('/', signupRouter);  // 회원가입 라우터
 app.use('/', board);   // 게시판 라우터
+app.use('/', products);   // 게시판 라우터
 
 // 서버 시작
 app.listen(port, () => {
