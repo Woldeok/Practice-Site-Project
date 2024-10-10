@@ -11,7 +11,7 @@ const loginRouter = require('./Backend/login');
 const signupRouter = require('./Backend/signup');
 const board = require('./Backend/board');
 const products = require('./Backend/products');
-
+const shoppingCart = require('./Backend/shoppingCart');
 // 쿠키 파서 설정
 app.use(cookieParser());
 
@@ -34,7 +34,7 @@ app.use('/', loginRouter);   // 로그인 라우터
 app.use('/', signupRouter);  // 회원가입 라우터
 app.use('/', board);   // 게시판 라우터
 app.use('/', products);   // 게시판 라우터
-
+app.use('/', shoppingCart);
 // 서버 시작
 app.listen(port, () => {
   console.log(`서버가 포트 ${port}에서 실행 중입니다.`);

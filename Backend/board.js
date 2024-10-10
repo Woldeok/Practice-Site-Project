@@ -99,10 +99,10 @@ router.get('/board/:postId/comment/:commentId/edit', authenticateToken, async (r
         }
 
         // Render the comment edit page with the post and comment details
-        res.render('editComment', {
+        res.render('editPost_s', {
             post,
             comment,
-            user: req.user || null, // Send the logged-in user information if available
+            user: req.user || null, // Send the logged-in user information if available8790ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ
             isAdmin // Send the admin status to the frontend
         });
     } catch (err) {

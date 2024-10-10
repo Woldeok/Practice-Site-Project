@@ -148,35 +148,12 @@ router.post('/product/detail/register', upload.single('image'), async (req, res)
 
 
 
-// 상품 상세페이지를 가져오는 GET 요청
-router.get('/product/:id', async (req, res) => {
-    const productId = req.params.id;
 
-    try {
-        // Products 테이블에서 상품 가격을 가져옴
-        const [product] = await db.query('SELECT name, price FROM Products WHERE id = ?', [productId]);
 
-        if (product.length === 0) {
-            return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
-        }
 
-        // ProductDetails 테이블에서 상품 설명 및 이미지를 가져옴
-        const [productDetails] = await db.query('SELECT description, image FROM ProductDetails WHERE product_id = ?', [productId]);
 
-        if (productDetails.length === 0) {
-            return res.status(404).json({ message: '상세 정보를 찾을 수 없습니다.' });
-        }
 
-        // EJS 파일에 상품 및 상세 정보를 전달
-        res.render('productDetail', { 
-            product: product[0], 
-            productDetails: productDetails[0] 
-        });
-    } catch (err) {
-        console.error('상세페이지 조회 중 오류 발생:', err);
-        return res.status(500).json({ message: '상세페이지 조회 중 오류가 발생했습니다.' });
-    }
-});
+
 
 
 module.exports = router;

@@ -64,14 +64,22 @@ router.post('/login', async (req, res) => {
             isAdmin = true;
         }
 
-        // 세션에 사용자 정보와 관리자 권한 추가
+        // 사용자의 권한 가져오기
+        const userRole = user[0].role;  // role 필드가 있다고 가정
+
+        // 세션에 사용자 정보, 관리자 권한, 권한(role) 추가
         req.session.userId = user[0].user_id;
         req.session.nickname = user[0].nickname;
         req.session.isAdmin = isAdmin;
+        req.session.userRole = userRole; // 권한을 세션에 저장
 
         // JWT 생성
-        const token = jwt.sign({ userId: user[0].user_id, nickname: user[0].nickname, isAdmin }, secretKey, { expiresIn: '1h' });
-        loginLogger.info(`로그인 성공 - user_id: ${user_id}, nickname: ${user[0].nickname}, isAdmin: ${isAdmin}`);
+        const token = jwt.sign(
+            { userId: user[0].user_id, nickname: user[0].nickname, isAdmin, role: userRole },  // role 추가
+            secretKey,
+            { expiresIn: '1h' }
+        );
+        loginLogger.info(`로그인 성공 - user_id: ${user_id}, nickname: ${user[0].nickname}, isAdmin: ${isAdmin}, role: ${userRole}`);
 
         // 토큰을 쿠키에 저장
         res.cookie('token', token, { httpOnly: true });
@@ -83,6 +91,7 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
     }
 });
+
 
 // 로그아웃 처리 (GET 요청)
 router.get('/logout', (req, res) => {
