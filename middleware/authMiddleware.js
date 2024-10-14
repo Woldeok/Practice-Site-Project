@@ -1,27 +1,40 @@
 const jwt = require('jsonwebtoken');
+const secretKey = process.env.JWT_SECRET || 'your_secret_key';  // 비밀키
 
+// JWT 토큰을 검증하는 미들웨어
 function authenticateToken(req, res, next) {
-    const token = req.cookies.token; // 쿠키에서 토큰 가져오기
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];  // 'Bearer <token>' 형식에서 토큰 추출
 
-    // 토큰이 없는 경우 홈으로 리다이렉트
-    if (!token) {
-        console.log(`${new Date().toISOString()} [info]: 요청에 토큰이 없습니다. 홈으로 리다이렉트됩니다.`);
-        return res.redirect('/'); // 홈으로 리다이렉트
+    if (token) {
+        jwt.verify(token, secretKey, (err, decoded) => {
+            if (err) {
+                console.error(`유효하지 않은 토큰: ${err}`);
+                // 토큰이 유효하지 않을 경우에도 세션을 확인하도록 함
+                checkSession(req, res, next);
+            } else {
+                req.user = decoded;  // 토큰에서 사용자 정보 추출
+                next();  // 인증 성공 시 다음 미들웨어 실행
+            }
+        });
+    } else {
+        // 토큰이 없으면 세션을 확인하도록 함
+        checkSession(req, res, next);
     }
+}
 
-    // 토큰 검증
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) {
-            console.error('토큰 검증 실패:', err);
-            // 유효하지 않은 토큰일 경우 홈으로 리다이렉트
-            return res.redirect('/');
-        }
-
-        // 토큰이 유효한 경우 사용자 정보를 요청 객체에 추가하고 로그 기록
-        req.user = user;
-        console.log(`${new Date().toISOString()} [info]: 요청한 사용자 ID: ${user.userId}`);
-        next(); // 다음 미들웨어로 이동
-    });
+// 세션에서 사용자 정보를 확인하는 함수
+function checkSession(req, res, next) {
+    if (req.session && req.session.userId && req.session.nickname) {
+        req.user = {
+            userId: req.session.userId,
+            nickname: req.session.nickname,
+            isAdmin: req.session.isAdmin
+        };
+        next();
+    } else {
+        return res.status(401).json({ message: '토큰 또는 세션이 필요합니다.' });
+    }
 }
 
 module.exports = authenticateToken;
