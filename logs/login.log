@@ -335,3 +335,4 @@
 2024-10-10T07:34:50.569Z [info]: 로그인 페이지 요청
 2024-10-10T07:34:55.463Z [info]: 로그인 시도 - user_id: wtrdd
 2024-10-10T07:34:55.588Z [info]: 로그인 성공 - user_id: wtrdd, nickname: 홍종환, isAdmin: true, role: Admin
+2024-10-10T07:55:53.476Z [info]: 로그인 페이지 요청
