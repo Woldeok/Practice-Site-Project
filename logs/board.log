@@ -1,0 +1,5 @@
+2024-09-21T04:51:41.513Z [info]: GET /board - 사용자: 비회원
+2024-09-21T04:51:44.829Z [info]: GET /board/new - 사용자: wtrdd
+2024-09-21T04:51:50.377Z [info]: POST /board - 사용자: wtrdd, 제목: ㄴㅁㅇ
+2024-09-21T04:51:50.402Z [info]: GET /board - 사용자: 비회원
+2024-09-21T04:51:52.375Z [info]: GET /board/8 - 사용자: 비회원

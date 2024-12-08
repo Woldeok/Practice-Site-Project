@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세페이지 등록</title>
+    <!-- 부트스트랩 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .register-container {
+            margin-top: 50px;
+        }
+        .product-detail-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .btn-block {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>팜앤베리</h1>
+            <nav>
+                <a href="#" class="text-white mr-3">소개</a>
+                <a href="#" class="text-white mr-3">게시판</a>
+                <a href="#" class="text-white mr-3">상점</a>
+                <a href="#" class="text-white mr-3">메뉴1</a>
+                <a href="/login" class="text-white mr-3">로그인</a>
+                <a href="/signup" class="text-white">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container register-container">
+        <h2 class="text-center">상세페이지 등록</h2>
+        <form action="/product/detail/register" method="POST" enctype="multipart/form-data" class="product-detail-form">
+            <div class="form-group">
+                <label for="productSelect">상품 선택</label>
+                <select id="productSelect" name="product_id" class="form-control" required>
+                    <option value="" disabled selected>상품을 선택하세요</option>
+                    <% products.forEach(function(product) { %>
+                        <option value="<%= product.id %>"><%= product.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">상품 설명</label>
+                <textarea id="productDescription" name="description" class="form-control" rows="4" placeholder="상품 설명" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productImage">상품 사진</label>
+                <input type="file" id="productImage" name="image" class="form-control-file">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">상세페이지 등록</button>
+        </form>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

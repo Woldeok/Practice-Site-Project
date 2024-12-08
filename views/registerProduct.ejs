@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <!-- 부트스트랩 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" href="/css/registerProduct.css">
+    <style>
+        /* 구글 폰트 추가 */
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            background-color: #00aaff;
+            padding: 0 20px; /* 좌우 padding */
+            display: flex;
+            align-items: center; /* 중앙 정렬 */
+            height: 100px; /* 홈 페이지와 동일한 높이 */
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* 로고 및 제목 스타일 */
+        .header h1 {
+            margin: 0;
+            font-size: 36px; /* 홈 페이지와 동일한 글자 크기 */
+            color: white;
+            font-family: 'Nanum Pen Script', cursive;
+            line-height: 1;
+        }
+
+        /* 메뉴 스타일 */
+        .header nav.menu {
+            display: flex;
+            align-items: center; /* 메뉴 아이템을 수직으로 중앙에 정렬 */
+            justify-content: center; /* 메뉴를 가로로 중앙 정렬 */
+            flex-grow: 1; /* 메뉴가 로고와 나머지 공간을 균등하게 사용하도록 */
+        }
+
+        .header nav.menu a {
+            font-size: 20px; /* 홈 페이지와 동일한 메뉴 글자 크기 */
+            color: white;
+            text-decoration: none;
+            margin: 0 15px; /* 메뉴 간 간격 */
+            font-family: 'Jua', sans-serif;
+            line-height: 1.5;
+        }
+
+        .header nav.menu a:hover {
+            text-decoration: underline;
+        }
+
+        /* 로그인 및 회원가입 메뉴 */
+        .header nav.auth-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .header nav.auth-menu a {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            margin-left: 15px; /* 로그인/회원가입 간격 */
+            font-family: 'Jua', sans-serif;
+        }
+
+        .header nav.auth-menu a:hover {
+            text-decoration: underline;
+        }
+
+        /* 컨텐츠 스타일 */
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+        h2 {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            height: 50px;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        .btn-block {
+            height: 60px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .header nav.menu a, .header nav.auth-menu a {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            .form-control {
+                height: 45px;
+                font-size: 16px;
+            }
+
+            .btn-block {
+                height: 55px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 시작 -->
+    <header class="header">
+        <div class="container">
+            <h1>팜앤베리</h1>
+            <nav class="menu">
+                <a href="/Company_introduction">회사소개</a>
+                <a href="/board">게시판</a>
+                <a href="/products">상점</a>
+                <a href="#">메뉴1</a>
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login">로그인</a>
+                <a href="/signup">회원가입</a>
+            </nav>
+        </div>
+    </header>
+    <!-- 헤더 끝 -->
+
+    <!-- 컨텐츠 시작 -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2>상품 등록</h2>
+                <form action="/product/register" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="productName">상품 이름</label>
+                        <input type="text" id="productName" name="name" class="form-control" placeholder="상품 이름" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">상품 가격</label>
+                        <input type="number" id="productPrice" name="price" class="form-control" placeholder="상품 가격" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">상품 사진</label>
+                        <input type="file" id="productImage" name="image" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">등록하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 컨텐츠 끝 -->
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

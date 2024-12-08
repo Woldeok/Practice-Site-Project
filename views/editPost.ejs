@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 수정</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/postDetail.css">
+</head>
+<body>
+    <header class="header bg-primary text-white py-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo d-flex align-items-center">
+                <img src="/img/logo.png" alt="로고" class="logo-img mr-2" style="width: 50px;">
+                <a href="/" class="site-name text-white font-weight-bold">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#" class="text-white mx-2">메뉴1</a>
+                <a href="#" class="text-white mx-2">메뉴2</a>
+                <a href="#" class="text-white mx-2">메뉴3</a>
+                <a href="#" class="text-white mx-2">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <% if (user) { %>
+                    <span>환영합니다, <%= user.nickname %>님!</span>
+                    <a href="/logout" class="btn btn-outline-light ml-2">로그아웃</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-light ml-2">로그인</a>
+                    <a href="/signup" class="btn btn-light ml-2">회원가입</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mb-4">게시글 수정</h2>
+                <form action="/board/<%= post.id %>/edit" method="POST" class="bg-light p-4 shadow-sm rounded">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" id="title" name="title" class="form-control" value="<%= post.title %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">내용</label>
+                        <textarea id="content" name="content" rows="10" class="form-control" required><%= post.content %></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">수정 완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS 및 종속성 추가 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+/* 공통 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+    color: #333;
+}
+
+.header {
+    background-color: #00aaff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-outer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.site-name {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu a, .auth-menu a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.menu a:hover, .auth-menu a:hover {
+    background-color: #007acc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* 버튼 스타일 */
+button, .write-button {
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover, .write-button:hover {
+    background-color: #007acc;
+    transform: translateY(-2px);
+}
+
+button:active, .write-button:active {
+    transform: translateY(0);
+}
+
+/* Board Container */
+.board-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.board-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #007acc;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* Board Table */
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.board-table th, .board-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.board-table th {
+    background-color: #00aaff;
+    color: white;
+}
+
+.board-table td {
+    color: #333;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    width: 100px;
+}
+
+/* 폼 스타일 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 200px;
+}
+
+/* 반응형 디자인 */
+
+/* 작은 화면 (모바일 기기) */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu a, .auth-menu a {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    .board-container {
+        width: 95%;
+        padding: 10px;
+        margin-top: 15px;
+    }
+
+    .board-title {
+        font-size: 20px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar input, .search-bar button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .board-table th, .board-table td {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .pagination {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pagination button {
+        margin: 5px 0;
+        width: 100%;
+    }
+}
+
+/* 초소형 화면 (아주 작은 모바일 기기) */
+@media (max-width: 480px) {
+    .logo-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .site-name {
+        font-size: 20px;
+    }
+
+    .menu a, .auth-menu a {
+        font-size: 14px;
+    }
+
+    .board-table th, .board-table td {
+        padding: 4px;
+        font-size: 12px;
+    }
+}
+.board-table td {
+    cursor: pointer;
+}
+
+.board-table td a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 글자색 상속 */
+}
+
+.board-table td:hover {
+    background-color: #f0f0f0;  /* 마우스 오버 시 배경색 변경 */
+}

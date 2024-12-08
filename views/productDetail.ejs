@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.name %> - 상세페이지</title>
+    <!-- 부트스트랩 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 구글 폰트 적용 -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 헤더 스타일 수정 */
+        .header {
+            background-color: #00aaff;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            font-family: 'Jua', sans-serif;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: white;
+            margin: 0;
+        }
+
+        .header nav {
+            display: flex;
+            align-items: center; /* 메뉴 세로 중앙 정렬 */
+        }
+
+        .header nav a {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* 로그인 및 회원가입을 오른쪽에 배치 */
+        .auth-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .auth-menu a {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .product-container {
+            margin-top: 50px;
+        }
+
+        .product-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a href="/" class="text-white">팜앤베리</a></h1> <!-- 로고에 링크 추가 -->
+            <nav>
+                <a href="/Company_introduction" class="text-white">회사소개</a> <!-- 회사소개 페이지 링크 -->
+                <a href="/board" class="text-white">게시판</a> <!-- 게시판 페이지 링크 -->
+                <a href="/products" class="text-white">상점</a> <!-- 상점 페이지 링크 -->
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login" class="text-white">로그인</a> <!-- 로그인 페이지 링크 -->
+                <a href="/signup" class="text-white">회원가입</a> <!-- 회원가입 페이지 링크 -->
+            </nav>
+        </div>
+    </header>
+
+    <div class="container product-container">
+        <h2 class="text-center"><%= product.name %> - 상세페이지</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <% if (productDetails && productDetails.image) { %>
+                    <img src="/uploads/<%= productDetails.image %>" alt="<%= product.name %>" class="product-image">
+                <% } else { %>
+                    <div class="product-image bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 400px;">
+                        이미지 없음
+                    </div>
+                <% } %>
+            </div>
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h4>상품명: <%= product.name %></h4>
+                    <p><strong>가격:</strong> <%= product.price %>원</p>
+                    <p><strong>상품 설명:</strong> <%= productDetails ? productDetails.description : '설명이 없습니다.' %></p>
+                    <button class="btn btn-primary" id="buyNow">구매하기</button>
+                    <button class="btn btn-secondary" id="addToCart">장바구니에 담기</button>
+                    <div id="message" class="mt-3"></div> <!-- 메시지를 표시할 영역 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- 장바구니 추가 스크립트 -->
+    <script>
+        document.getElementById('addToCart').addEventListener('click', function() {
+            fetch('/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: '<%= user ? user.id : null %>',  // 현재 사용자 ID, 없으면 null
+                    product_id: '<%= product.id %>',  // 상품 ID
+                    quantity: 1  // 수량 기본값 1
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById('message').textContent = data.message;
+                    document.getElementById('message').className = 'alert alert-success';
+                } else {
+                    document.getElementById('message').textContent = '장바구니 추가 중 오류가 발생했습니다.';
+                    document.getElementById('message').className = 'alert alert-danger';
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = '장바구니 추가 중 오류가 발생했습니다.';
+                document.getElementById('message').className = 'alert alert-danger';
+            });
+        });
+    </script>
+</body>
+</html>

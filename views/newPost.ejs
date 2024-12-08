@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 작성</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #00aaff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-outer {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .site-name {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu a, .auth-menu a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .menu a:hover, .auth-menu a:hover {
+            background-color: #007acc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .write-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .write-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 600px;
+        }
+
+        .toolbar {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .toolbar input[type="number"] {
+            width: 80px;
+        }
+
+        .toolbar select,
+        .toolbar button,
+        .toolbar input[type="number"] {
+            padding: 8px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .toolbar button:hover,
+        .toolbar select:hover,
+        .toolbar input[type="number"]:hover {
+            background-color: #ddd;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #00aaff;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background-color: #007acc;
+        }
+
+        .draggable {
+            cursor: move;
+        }
+
+        @media (max-width: 768px) {
+            .write-container {
+                width: 90%;
+                margin-top: 20px;
+            }
+
+            .write-title {
+                font-size: 24px;
+            }
+
+            .form-group input, .form-group textarea {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .submit-button {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .site-name {
+                font-size: 20px;
+            }
+
+            .menu a, .auth-menu a {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="#">회사소개</a>
+                <a href="/board">자유게시판</a>
+                <a href="/products">상점</a>
+                <a href="#">기타 메뉴</a>
+            </nav>
+            <nav class="auth-menu">
+                <a href="/login">로그인</a>
+                <a href="/signup">회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="write-container">
+        <h2 class="write-title">글 작성</h2>
+        <form action="/board" method="POST" enctype="multipart/form-data">
+            <!-- 텍스트 에디터 도구바 -->
+            <div class="toolbar">
+                <button type="button" onclick="document.execCommand('bold', false, '');"><b>굵게</b></button>
+                <button type="button" onclick="document.execCommand('italic', false, '');"><i>기울임</i></button>
+                <button type="button" onclick="document.execCommand('underline', false, '');"><u>밑줄</u></button>
+
+                <!-- 숫자로 폰트 크기 입력 -->
+                <input type="number" min="8" max="72" value="10" onchange="setFontSize(this.value)">
+
+                <input type="color" onchange="document.execCommand('foreColor', false, this.value);">
+
+                <!-- 이미지 삽입 버튼 -->
+                <label for="imageUpload" class="btn btn-secondary">이미지 업로드</label>
+                <input type="file" id="imageUpload" style="display: none;" accept="image/*" onchange="insertImage(event)">
+                
+                <!-- 이미지 정렬 버튼 -->
+                <button type="button" onclick="setImageAlignment('left')">이미지 왼쪽 정렬</button>
+                <button type="button" onclick="setImageAlignment('center')">이미지 가운데 정렬</button>
+                <button type="button" onclick="setImageAlignment('right')">이미지 오른쪽 정렬</button>
+            </div>
+
+            <!-- 내용 입력 부분 -->
+            <div class="form-group">
+                <input type="text" name="title" placeholder="제목" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <div id="editor" contenteditable="true" class="form-control" placeholder="내용을 작성하세요..." required style="height: 600px;"></div>
+                <textarea id="content" name="content" style="display:none;"></textarea> <!-- 실제 전송될 내용 -->
+            </div>
+
+            <button type="submit" class="submit-button">작성하기</button>
+        </form>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 폰트 크기를 숫자로 조정하는 함수
+        function setFontSize(size) {
+            document.execCommand("fontSize", false, "7");  // 임시로 큰 크기 설정
+            const fontElements = document.getElementById('editor').getElementsByTagName('font');
+            for (let i = 0; i < fontElements.length; i++) {
+                fontElements[i].removeAttribute("size");
+                fontElements[i].style.fontSize = size + "px";  // 실제 px 단위로 폰트 크기 설정
+            }
+        }
+
+        // 이미지 업로드 및 삽입 함수
+        function insertImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.display = 'block';  // 기본적으로 block으로 설정하여 전체 너비 사용
+                    img.classList.add('uploaded-image', 'draggable'); // 이미지 정렬을 위해 클래스 추가
+                    img.setAttribute('draggable', true);  // 드래그 가능하도록 설정
+                    document.getElementById('editor').appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 이미지 정렬 설정
+        function setImageAlignment(alignment) {
+            const editor = document.getElementById('editor');
+            const images = editor.getElementsByClassName('uploaded-image');
+            if (images.length > 0) {
+                const lastImage = images[images.length - 1];
+                lastImage.style.margin = '10px auto';  // 기본적으로 위아래 여백 추가
+                lastImage.style.display = 'block';  // 기본 block으로 설정
+
+                // 정렬 처리
+                if (alignment === 'left') {
+                    lastImage.style.float = 'left';
+                } else if (alignment === 'center') {
+                    lastImage.style.float = 'none'; // 가운데 정렬 시 float 해제
+                    lastImage.style.margin = '10px auto';  // 자동 중앙 정렬
+                } else if (alignment === 'right') {
+                    lastImage.style.float = 'right';
+                }
+            }
+        }
+
+        // 드래그 앤 드롭 기능 활성화
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.classList.contains('draggable')) {
+                event.dataTransfer.setData('text/plain', null);  // 드래그할 때의 기본 설정
+            }
+        });
+
+        document.addEventListener('dragover', function(event) {
+            event.preventDefault();  // 기본 드래그 동작을 방지
+        });
+
+        document.addEventListener('drop', function(event) {
+            event.preventDefault();
+            if (event.target.id === 'editor') {
+                const draggedElement = document.querySelector('.dragging');
+                const dropX = event.clientX;
+                const dropY = event.clientY;
+
+                // 이미지의 위치 조정
+                draggedElement.style.position = 'absolute';
+                draggedElement.style.left = `${dropX}px`;
+                draggedElement.style.top = `${dropY}px`;
+            }
+        });
+
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.classList.contains('draggable')) {
+                event.target.classList.add('dragging');  // 드래그하는 동안 클래스 추가
+            }
+        });
+
+        document.addEventListener('dragend', function(event) {
+            if (event.target.classList.contains('draggable')) {
+                event.target.classList.remove('dragging');  // 드래그가 끝나면 클래스 제거
+            }
+        });
+
+        // 폼 제출 전에 contenteditable 내용을 textarea로 옮기기
+        document.querySelector('form').addEventListener('submit', function () {
+            const editorContent = document.getElementById('editor').innerHTML;
+            document.getElementById('content').value = editorContent;
+        });
+    </script>
+</body>
+</html>

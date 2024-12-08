@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" href="/css/postDetail.css">
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .toolbar {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .toolbar button, .toolbar select, .toolbar input[type="number"] {
+            padding: 5px;
+            margin-right: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        .toolbar input[type="number"] {
+            width: 60px;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #00aaff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .submit-button:hover {
+            background-color: #007acc;
+        }
+        .post-content, .comment-content {
+            white-space: pre-wrap; /* 줄 바꿈을 반영하기 위해 */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-outer">
+            <div class="logo">
+                <img src="/img/logo.png" alt="로고" class="logo-img">
+                <a href="/" class="site-name">팜앤베리</a>
+            </div>
+            <nav class="menu">
+                <a href="/Company_introduction">회사소개</a>
+                <a href="/board">자유게시판</a>
+                <a href="/products">상점</a>
+                <a href="#">메뉴4</a>
+            </nav>
+            <nav class="auth-menu">
+                <% if (user) { %>
+                    <span>환영합니다, <%= user.nickname %>님!</span>
+                    <a href="/logout">로그아웃</a>
+                <% } else { %>
+                    <a href="/login">로그인</a>
+                    <a href="/signup">회원가입</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="post-container">
+        <h2 class="post-title"><%= post.title %></h2>
+        <div class="post-details">
+            <p class="post-author">작성자: <%= post.author %></p>
+            <p class="post-date">작성 시간: <%= new Date(post.created_at).toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true }) %></p>
+
+            <% if (user && (user.userId === authorId || isAdmin)) { %> 
+                <div class="post-actions">
+                    <a href="/board/<%= post.id %>/edit" class="edit-button">수정</a>
+                    <form action="/board/<%= post.id %>/delete" method="POST" class="delete-form" style="display: inline;">
+                        <button type="submit" class="delete-button">삭제</button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+        <div class="post-content" id="postContent">
+            <!-- 게시글 내용은 HTML 형식으로 표시 -->
+            <%- post.content %>
+        </div>
+
+        <div class="comments-section">
+            <h3>댓글</h3>
+            <ul class="comments-list">
+                <% comments.forEach(function(comment) { %>
+                    <li class="comment-item">
+                        <div class="comment-author"><%= comment.userId %></div> <!-- 댓글 작성자 ID -->
+                        <div class="comment-time"><%= new Date(comment.created_at).toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true }) %></div>
+                        <div class="comment-content">
+                            <!-- 댓글 내용은 단순 텍스트로 표시 -->
+                            <%= comment.content %>
+                        </div>
+
+                        <% if (user && (user.userId === comment.userId || isAdmin)) { %>
+                            <div class="comment-actions">
+                                <a href="/board/<%= post.id %>/comment/<%= comment.id %>/edit" class="edit-button">수정</a>
+                                <form action="/board/<%= post.id %>/comment/<%= comment.id %>/delete" method="POST" class="delete-form" style="display: inline;">
+                                    <button type="submit" class="delete-button">삭제</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+
+            <% if (user) { %>
+                <!-- 댓글 작성 부분에는 텍스트 상자만 포함 -->
+                <form action="/board/<%= post.id %>/comment" method="POST" class="comment-form">
+                    <textarea name="comment" class="form-control" rows="4" placeholder="댓글을 작성하세요..." required></textarea>
+                    <button type="submit" class="submit-button">댓글 작성</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
